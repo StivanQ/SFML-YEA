@@ -15,6 +15,10 @@ bool dropdown = false;
 int meniualfa = 255;
 bool timp_meniu_escape = false;
 int asdf = 0,aasdf = 0;
+int volum = 50, variabilamuz = 1;
+bool muzicq = false;
+bool mergem = true;
+int zxc1 = 1, zxc2 = 1;
 
 //Seteaza culoarea si pozitia initiala a playerului
 void initializare_player()
@@ -30,12 +34,21 @@ sf::ContextSettings settings;
 //Setari de antialiasing (default = 8)
 void antialiasing(int x)
 {
-	if (x <= 0 || x >= 16)
+	if (x <= 0 && x >= 16)
 	{
 		x = 8;
 	}
 	settings.antialiasingLevel = x;
 }
+
+//muzica
+sf::Music music;
+void initializare_muzica() {
+	music.openFromFile("muzica/Rock.ogg");
+	music.setLoop(true);
+	music.setVolume(volum);         // reduce the volume
+}
+
 
 //Window
 sf::RenderWindow window(sf::VideoMode(lungimeWindow, inaltimeWindow), "Masinuta!", sf::Style::None, settings);
@@ -97,11 +110,11 @@ void creare_buton3() {
 /////////////////////////////////////////////////////////////////////////////text
 
 //text1
-sf::Text text1("Positie centru + rotatie 0", font);
+sf::Text text1("Oprire muzica", font);
 void creare_text1() {
 	text1.setCharacterSize(15);
 	text1.setColor(sf::Color::Black);
-	text1.setPosition(lungimeWindow - 240, inaltimeWindow - 40);
+	text1.setPosition(lungimeWindow - 160, inaltimeWindow - 40);
 }
 
 //text2
@@ -148,7 +161,7 @@ void creare_textesc2() {
 		window.draw(buton2);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 40 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 20)
 		{
-			player.setPosition(lungimeWindow / 2, inaltimeWindow / 2); player.setRotation(0);
+			music.stop();
 		}
 		window.draw(buton3);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 60 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 40)
@@ -158,6 +171,7 @@ void creare_textesc2() {
 	}
 	else
 		dropdown = false;
+
 }
 
 //Functie de afisare a meniului principal
@@ -175,7 +189,7 @@ void afisare_meniu() {
 
 		if (mousePos.x >= lungimeWindow / 2 - 100 && mousePos.y >= inaltimeWindow / 2 - 70 && mousePos.x <= lungimeWindow / 2 + 90 && mousePos.y <= inaltimeWindow / 2 + 30)
 		{
-			textmeniu.setColor(sf::Color::Red);
+			textmeniu.setColor(sf::Color::Red); 
 		}
 		else
 		{
@@ -186,7 +200,12 @@ void afisare_meniu() {
 		{
 			if (mousePos.x >= lungimeWindow / 2 - 100 && mousePos.y >= inaltimeWindow / 2 - 70 && mousePos.x <= lungimeWindow / 2 + 90 && mousePos.y <= inaltimeWindow / 2 + 30)
 			{
-				timp_meniu = false;
+				timp_meniu = false; variabilamuz = 1;
+				if (variabilamuz == 1)
+				{
+					music.play();
+					variabilamuz = 0;
+				}
 			}
 		}
 
@@ -271,9 +290,8 @@ void meniu_escape()
 			textesc1.setFillColor(sf::Color::White);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				timp_meniu_escape = false;
+				timp_meniu_escape = false; 
 			}
 		}window.draw(textesc1);
 	}
 }
-
