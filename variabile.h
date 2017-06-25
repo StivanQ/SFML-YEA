@@ -276,5 +276,4 @@ void meniu_escape()
 		}window.draw(textesc1);
 	}
 }
-//apai da
 
