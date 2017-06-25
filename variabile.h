@@ -30,7 +30,7 @@ sf::ContextSettings settings;
 //Setari de antialiasing (default = 8)
 void antialiasing(int x)
 {
-	if (x <= 0 && x >= 16)
+	if (x <= 0 || x >= 16)
 	{
 		x = 8;
 	}
