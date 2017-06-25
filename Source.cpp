@@ -56,7 +56,7 @@ int main()
 			window.clear(background);
 			window.draw(player);
 
-			if(timp_meniu == false && timp_meniu_escape == false)
+			if(timp_meniu == false && timp_meniu_escape == false) //debugger
 			window.draw(buton);
 
 			buton_dreapta(); //buton dreapta jos
@@ -71,3 +71,4 @@ int main()
 		}
 	return 0;
 }
+// waeoweoaweoaweoawoeaweawoeaw
