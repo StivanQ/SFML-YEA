@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <cmath>
 #include "variabile.h"
@@ -33,6 +34,8 @@ int main()
     
 //meniu
 	culoare_meniu();
+
+	initializare_muzica();
 
 	//gameloop
 	while (window.isOpen())
@@ -71,4 +74,4 @@ int main()
 		}
 	return 0;
 }
-// waeoweoaweoaweoawoeaweawoeaw
+// 
