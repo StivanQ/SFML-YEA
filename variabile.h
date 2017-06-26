@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
 #define PI 3.14159265
 
 using namespace std;
@@ -15,10 +17,14 @@ bool dropdown = false;
 int meniualfa = 255;
 bool timp_meniu_escape = false;
 int asdf = 0,aasdf = 0;
-int volum = 50, variabilamuz = 1;
+int volum = 25, variabilamuz = 1;
 bool muzicq = false;
 bool mergem = true;
 int zxc1 = 1, zxc2 = 1;
+//muzicTimer
+sf::Clock muzicClock;
+sf::Time muzicTime;
+float secunde=0;
 
 //Seteaza culoarea si pozitia initiala a playerului
 void initializare_player()
@@ -161,7 +167,21 @@ void creare_textesc2() {
 		window.draw(buton2);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 40 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 20)
 		{
-			music.stop();
+			if (muzicq == true)
+			{
+				music.pause();
+				muzicq = false;
+				muzicTime = muzicClock.restart();
+				secunde = muzicTime.asSeconds();
+			}
+			else if (muzicq == false)
+			{
+				music.play();
+				muzicq = true;
+				muzicTime = muzicClock.restart();
+				secunde = muzicTime.asSeconds();
+			}
+
 		}
 		window.draw(buton3);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 60 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 40)
@@ -205,6 +225,9 @@ void afisare_meniu() {
 				{
 					music.play();
 					variabilamuz = 0;
+					muzicq = true;
+					muzicTime = muzicClock.restart();
+					secunde = muzicTime.asSeconds();
 				}
 			}
 		}
@@ -212,7 +235,7 @@ void afisare_meniu() {
 	}
 }
 
-//fucntia de miscare
+//functia de miscare
 void miscare() {
 	if (timp_meniu == false && timp_meniu_escape == false)
 	{
@@ -238,16 +261,19 @@ void miscare() {
 // afisare variabile pentru debug
 void debugger()
 {
-	if (i == 10)
+	if (i == 1)
 	{
-		cout << "rotatie = " << rotation - 90 << endl;
-		cout << "x  = " << playerPos.x << endl;
-		cout << "y = " << playerPos.y << endl;
-		if (i == 10)
-		{
-			i = 0;
-		}
-	}i++;
+		//cout << "rotatie = " << rotation - 90 << endl;
+		//cout << "x  = " << playerPos.x << endl;
+		//cout << "y = " << playerPos.y << endl;
+		cout << "sec " << secunde << endl;
+		if (muzicq == true)
+			cout << 1 << endl;
+		else
+			cout << 0 << endl;
+		i = 0;
+	}
+	i++;
 }
 
 //meniu escape
