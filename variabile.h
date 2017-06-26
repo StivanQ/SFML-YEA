@@ -19,6 +19,7 @@ bool timp_meniu_escape = false;
 int asdf = 0,aasdf = 0;
 int volum = 25, variabilamuz = 1;
 bool muzicq = false;
+bool bagEuPula = true;
 bool mergem = true;
 int zxc1 = 1, zxc2 = 1;
 //muzicTimer
@@ -116,11 +117,11 @@ void creare_buton3() {
 /////////////////////////////////////////////////////////////////////////////text
 
 //text1
-sf::Text text1("Oprire muzica", font);
+sf::Text text1("Oprire/Pornire muzica", font);
 void creare_text1() {
 	text1.setCharacterSize(15);
 	text1.setColor(sf::Color::Black);
-	text1.setPosition(lungimeWindow - 160, inaltimeWindow - 40);
+	text1.setPosition(lungimeWindow - 210, inaltimeWindow - 40);
 }
 
 //text2
@@ -167,22 +168,26 @@ void creare_textesc2() {
 		window.draw(buton2);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 40 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 20)
 		{
-			if (muzicq == true)
+			if (muzicq == true && bagEuPula == true)
 			{
 				music.pause();
 				muzicq = false;
 				muzicTime = muzicClock.restart();
 				secunde = muzicTime.asSeconds();
+				bagEuPula = false;
 			}
-			else if (muzicq == false)
+			else if (muzicq == false && bagEuPula == true)
 			{
 				music.play();
 				muzicq = true;
 				muzicTime = muzicClock.restart();
 				secunde = muzicTime.asSeconds();
 			}
+			bagEuPula = false;
 
 		}
+		else
+			bagEuPula = true;
 		window.draw(buton3);
 		if (mousePos.x >= lungimeWindow - 50 && mousePos.y >= inaltimeWindow - 60 && sf::Mouse::isButtonPressed(sf::Mouse::Left) && mousePos.y <= inaltimeWindow - 40)
 		{
